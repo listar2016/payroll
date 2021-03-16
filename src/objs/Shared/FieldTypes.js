@@ -1,0 +1,22 @@
+export const FieldTypes = {
+  TEXT_FIELD: "text-field",
+  TEXT_AREA: "text-area",
+  LARGE_TEXT_AREA: "large-text-area",
+  PHONE_NUMBER_FIELD: "phone-number-field",
+  DATE_NO_ERROR: "date-field-no-error",
+  DATE: "date-field",
+  DATE_PICKER: "date-picker",
+  TIME: "time-field",
+  TIME_INPUT: "time-input",
+  RADIO_GROUP: "radio-group",
+  CHECKBOX: "checkbox",
+  STANDARD_SELECT: "standard-select",
+  MULTIPLE_SELECT: "multiple-select",
+  ZIP_CODE_FIELD: "zip-code-field",
+  AUTOCOMPLETE: "autocomplete",
+  NUMERIC_FIELD: "numeric-field",
+  TEXT_EDITOR_READONLY: "text-editor-readonly",
+  TEXT_EDITOR_FULL_EXTENSION_LIST: "text-editor-full-extension-list",
+  MULTIPLE_AUTOCOMPLETE: "multiple-autocomplete",
+  FILE_INPUT: "file-input"
+};

@@ -1,0 +1,80 @@
+{
+  "name": "client-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.4.4",
+    "core-js": "^3.6.5",
+    "font-awesome": "^4.7.0",
+    "html2canvas": "^1.0.0-rc.7",
+    "moment": "^2.24.0",
+    "oidc-client": "^1.10.1",
+    "roboto-fontface": "*",
+    "tiptap-vuetify": "^2.11.1",
+    "vue": "^2.6.12",
+    "vue-router": "^3.4.3",
+    "vuelidate": "^0.7.4",
+    "vuelidate-error-extractor": "^2.4.0",
+    "vuetify": "^2.2.11",
+    "vuex": "^3.5.1",
+    "vuex-class": "^0.3.2",
+    "vuex-persistedstate": "^2.7.0"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.13",
+    "@fortawesome/free-brands-svg-icons": "^5.7.0",
+    "@fortawesome/free-solid-svg-icons": "^5.7.0",
+    "@fortawesome/vue-fontawesome": "^0.1.5",
+    "@mdi/font": "^5.6.55",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "^4.5.0",
+    "@vue/cli-plugin-eslint": "^4.5.0",
+    "@vue/cli-plugin-typescript": "^4.5.6",
+    "@vue/cli-service": "^4.5.0",
+    "@vue/eslint-config-standard": "^5.1.2",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "axios": "^0.20.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "font-awesome": "^4.7.0",
+    "node-sass": "^4.12.0",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "typescript": "^4.0.3",
+    "vue-cli-plugin-vuetify": "^2.0.7",
+    "vue-template-compiler": "^2.6.11",
+    "vue-the-mask": "^0.11.1"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "@vue/standard",
+      "@vue/typescript"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie <= 10"
+  ]
+}

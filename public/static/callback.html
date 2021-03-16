@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Waiting...</title>
+</head>
+
+<body>
+    <script src="./oidc-client.js"></script>
+    <script>
+        console.log("On the callback page");
+    var mgr = new Oidc.UserManager({ userStore: new Oidc.WebStorageStateStore(), loadUserInfo: true, filterProtocolClaims: true });
+
+        mgr.signinRedirectCallback().then(function (user)
+        {
+            console.log("In the callback of the callback page");
+      console.log(user);
+      window.location.href = '../';
+    }).catch(function (err) {
+      console.log(err);
+    });
+
+    </script>
+</body>
+
+</html>
