@@ -202,7 +202,7 @@ export const routes = [
         icon: "home",
         title: "Edit Scheduled Deduction",
         component: NewDeduction,
-        onNavBar: true,
+        onNavBar: false,
         props: true,
         meta: {
           requiresAuth: true
@@ -237,7 +237,7 @@ export const routes = [
         icon: "home",
         title: "Edit Other Earning Charge",
         component: NewCharge,
-        onNavBar: true,
+        onNavBar: false,
         props: true,
         meta: {
           requiresAuth: true
