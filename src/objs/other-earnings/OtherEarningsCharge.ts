@@ -21,7 +21,7 @@ export default class OtherEarningsCharge {
             remittanceReportId = null,
             otherEarningsRateId = 0,
             earningsCodeId = null,
-            durationMinutes = 0,
+            durationMinutes = null,
             isHourlyAmount = false,
             customAmount = null,
             chargeDate = null,

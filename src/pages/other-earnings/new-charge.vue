@@ -68,9 +68,6 @@
             label="Program"
             v-model="form.programId"
             dense
-            :error-messages="programIdErrors"
-            @change="$v.form.programId.$touch()"
-            @blur="$v.form.programId.$touch()"
           ></v-select>
         </v-col>
       </v-row>
@@ -108,12 +105,15 @@
       </v-row>
       <v-row>
         <v-col cols="12" md="3">
-          <v-radio-group v-model="rateType">
+          <v-radio-group
+            v-model="form.rateType"
+            @change="changeRateType()"
+          >
             <v-radio
               v-for="(rate, index) in rateTypes"
               :key="index"
               :label="rate"
-              :value="index"
+              :value="index"              
             ></v-radio>
           </v-radio-group>
         </v-col>
@@ -152,6 +152,7 @@
         
         <v-col cols="12" md="3">
           <v-text-field
+            v-if="form.rateType>0"
             v-model="form.customAmount"
             label="Amount"
             dense
@@ -209,7 +210,6 @@ export default {
     valid: false,
     form: new OtherEarningsCharge(),
     selectedChargeType: 1,
-    rateType: 0,
     newRateDialog: false,
     otherEarningRate: new OtherEarningRate(),
     showNewRateButton: false,
@@ -286,17 +286,10 @@ export default {
         !this.$v.form.earningsCodeId.required && errors.push("Deduction type is required");
         return errors;
     },
-    programIdErrors () {
-        const errors = [];
-        if (!this.$v.form.programId.$dirty) return errors;
-        !this.$v.form.programId.required && errors.push("Program is required");
-        return errors;
-    },
     customAmountErrors() {
       const errors = [];
       if (!this.$v.form.customAmount.$dirty) return errors;
-      if(this.rateType > 0 && !this.form.customAmount)
-        errors.push("Custom amount is required");
+      !this.$v.form.customAmount.required && errors.push("Custom amount is required");
       !this.$v.form.customAmount.minValue &&
         errors.push("Custom amount is invalid");
       return errors;
@@ -309,11 +302,9 @@ export default {
     },
     durationMinutesErrors () {
       const errors = [];
-        if (!this.$v.form.durationMinutes.$dirty) return errors;
-        if(this.rateType < 2 && !this.durationMinutes) errors.push("Duration minutes is required");        
-        if(!this.form.durationMinutes) errors.push("Duration minutes is invalid")
-        
-        return errors;
+      if (!this.$v.form.durationMinutes.$dirty) return errors;
+      !this.$v.form.durationMinutes.required && errors.push("Duration minutes is invalid")
+      return errors;
     }
   },
   
@@ -327,54 +318,67 @@ export default {
   mounted () {
       this.form = {
           ...this.form,
-          ...this.otherEarningsCharge
+          ...this.otherEarningsCharge,
+          rateType: 0
       }
+      if(this.$router.name === 'Edit Scheduled Deduction')
+        this.form.rateType = this.form.otherEarningsRateId ? 0 : this.form.isHourlyAmount ? 1 : 2
   },
   watch: {
-    rateType() { 
-      if(this.rateType === 0 && this.form.providerId > 0 && this.form.earningsCodeId > 0)
-        this.findMatchingRate()
-      if(this.rateType === 0) this.form.otherEarningsRateId = 0
-      else this.showNewRateButton = false
-    },
     form: {
           deep: true,
           handler: 'watchForm'
     },
     durationMinutes () {
       const nums = this.durationMinutes.split(':')
-      if(nums.length < 2) this.form.durationMinutes = 0
-      else this.form.durationMinutes = parseInt(nums[0]) * 60 + parseInt(nums[1])
-      console.log(this.form.durationMinutes)
+      if(nums.length < 2) this.form.durationMinutes = null
+      if((parseInt(nums[0]) * 60 + parseInt(nums[1])) > 0)
+        this.form.durationMinutes = parseInt(nums[0]) * 60 + parseInt(nums[1])
+      else
+        this.form.durationMinutes = null
     }
   },
   validations: {
+    durationMinutes: {},
     form: {
       customAmount: {
-          minValue: minValue(0)
+        required: requiredIf(function(model) {
+          if(model.rateType > 0) return true
+          return false
+        }),
+        minValue: minValue(0),
       },
       earningsCodeId: { required },
       providerId: { required },
-      programId: { required },
       chargeDate: { required },
       omniCorporationDivisionId: { required },
-      durationMinutes: {}
+      durationMinutes: {
+        required: requiredIf(function(model) {
+            if(model.rateType === 1) return true
+            return false
+        })
+      },
     },
   },
   methods: {
     changeProvider () {
       this.$v.form.providerId.$touch()
-      this.form.earningsCodeId > 0 && this.findMatchingRate()
+      this.form.earningsCodeId > 0 && this.form.rateType === 0 && this.findMatchingRate()
     },
 
     changeEarningCode () {
       this.$v.form.earningsCodeId.$touch()
-      this.form.providerId > 0 && this.findMatchingRate()
+      this.form.providerId > 0 && this.form.rateType === 0 && this.findMatchingRate()
+    },
+
+    changeRateType () {
+      this.form.rateType === 0 && this.form.providerId > 0 && this.form.earningsCodeId > 0 && this.findMatchingRate()
+      this.form.rateType !== 0 && (this.form.otherEarningsRateId = 0)
     },
 
     watchForm () {
-      if(this.rateType === 1) this.form.isHourlyAmount = true
-      else if(this.rateType === 2) this.form.isHourlyAmount = false
+      if(this.form.rateType === 1) this.form.isHourlyAmount = true
+      else if(this.form.rateType === 2) this.form.isHourlyAmount = false
 
       if(this.form.providerId > 0)
         this.otherEarningRate.providerId = this.form.providerId
@@ -397,10 +401,9 @@ export default {
         this.showNewRateButton = false
       }
       else {
-        this.rateType = 0
+        this.form.rateType = 0
         this.showNewRateButton = true
       }
-      console.log(res)
       this.$store.dispatch("uxModule/hideLoader")
     },
     changeChargeDate(date) {
@@ -427,7 +430,9 @@ export default {
       if (this.$v.form.$invalid) {
         return;
       }
+      if(this.form.customAmount === null)this.form.customAmount = 0
       this.$store.dispatch("uxModule/showLoader", this.uxData.loaderText)
+      
       const success = await this.$store.dispatch(this.uxData.path, {...this.form})
 
       this.$store.dispatch("uxModule/hideLoader")
