@@ -373,7 +373,8 @@ export default {
 
     changeRateType () {
       this.form.rateType === 0 && this.form.providerId > 0 && this.form.earningsCodeId > 0 && this.findMatchingRate()
-      this.form.rateType !== 0 && (this.form.otherEarningsRateId = 0)
+      this.form.rateType !== 0 && (this.form.otherEarningsRateId = null)
+      this.form.rateType > 0 && (this.showNewRateButton = false)
     },
 
     watchForm () {
@@ -431,6 +432,8 @@ export default {
         return;
       }
       if(this.form.customAmount === null)this.form.customAmount = 0
+      if(this.form.durationMinutes == null)this.form.durationMinutes = 0
+      console.log(this.form)
       this.$store.dispatch("uxModule/showLoader", this.uxData.loaderText)
       
       const success = await this.$store.dispatch(this.uxData.path, {...this.form})

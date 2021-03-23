@@ -19,7 +19,7 @@ export default class OtherEarningsCharge {
             isScheduledDeduction = false,
             providerId = null,
             remittanceReportId = null,
-            otherEarningsRateId = 0,
+            otherEarningsRateId = null,
             earningsCodeId = null,
             durationMinutes = null,
             isHourlyAmount = false,
