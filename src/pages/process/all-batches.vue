@@ -116,11 +116,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      payrollBatches: "processPayrollModule/payrollBatches",
+      payrollBatches: "payrollBatchModule/payrollBatches",
     }),
   },
   directives: { mask },
-  created() {
+  async created() {
+    this.$store.dispatch("uxModule/showLoader", 'Loading data...')
+
+    await this.$store.dispatch("payrollBatchModule/getAllBatches")
+    this.$store.dispatch("uxModule/hideLoader")
     this.fpayrollBatches = Array.from(this.payrollBatches);
   },
   watch: {

@@ -107,7 +107,7 @@ export default {
           if(!this.valid)return
           console.log(this.form)
           this.$store.dispatch(
-              'processPayrollModule/generateBatch',
+              'payrollBatchModule/generateBatch',
               {...this.form}
           )
           this.$router.push({

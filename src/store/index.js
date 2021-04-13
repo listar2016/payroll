@@ -12,7 +12,7 @@ import formFieldsModule from "./Modules/formFieldsModule";
 import sharedModule from "./Modules/sharedModule";
 import securityModule from "./Modules/securityModule";
 import sampleModule from "./Modules/sampleModule";
-import processPayrollModule from "./Modules/processPayrollModule";
+import payrollBatchModule from "./Modules/payrollBatchModule";
 import providerModule from "./Modules/providerModule";
 import otherEarningsModule from "./Modules/otherEarningsModule";
 import optionModule from "./Modules/optionModule";
@@ -30,7 +30,7 @@ const store = new Vuex.Store({
     sharedModule: sharedModule,
     securityModule: securityModule,
     sampleModule: sampleModule,
-    processPayrollModule: processPayrollModule,
+    payrollBatchModule: payrollBatchModule,
     providerModule: providerModule,
     otherEarningsModule: otherEarningsModule,
     optionModule: optionModule,

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <div class="d-flex pb-10 mb-5">
+    <div class="d-flex">
             <v-btn
                 text
                 plain
@@ -46,7 +46,18 @@
             >
                 Edit Session Rate
             </v-btn>
-        </div>
+    </div>
+    <div class="pb-10 mb-5">
+      <v-btn
+        text
+        @click="$router.go(-1)"
+      >
+        <v-icon>
+          mdi-keyboard-backspace
+        </v-icon>
+        Back to Previous Page
+      </v-btn>
+    </div>
     <v-toolbar flat color="white">
       <v-toolbar-title>Session Rate</v-toolbar-title>
       <v-divider class="mx-4" inset vertical></v-divider>
@@ -532,7 +543,6 @@ export default {
     languagesErrors() {
       const errors = [];
       if (!this.$v.form.languages.$dirty) return errors;
-      console.log(this.$v.form.languages.required)
       !this.$v.form.languages.required && errors.push("Languages is required");
       return errors;
     },

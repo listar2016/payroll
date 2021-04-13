@@ -1,7 +1,6 @@
-
 import Language from './Language'
 
-export default class Provider {
+export default class SessionRate {
     sessionRateId?: number | null;
     providerId?: number | null;
     effectiveDate?: Date | null;
@@ -23,7 +22,7 @@ export default class Provider {
     providerCorporation?: string | null;
     languages?: Language[] | null;
 
-  public constructor(params: Provider = {} as Provider) {
+  public constructor(params: SessionRate = {} as SessionRate) {
     let {
         sessionRateId = 0,
         providerId = 0,

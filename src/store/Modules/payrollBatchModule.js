@@ -1,5 +1,4 @@
 import * as api from "../Services/api.js";
-import CreatePayrollBatch from "../../objs/CreatePayrollBatch";
 export const state = {
   payrollBatches: [],
   providers: [
@@ -24,6 +23,9 @@ export const state = {
 export const mutations = {
   GENERATE_BATCH(state, payload) {
     state.payrollBatches.push({...payload});
+  },
+  SET_ALL_PAYROLL_BATCHES(state, payload) {
+    state.payrollBatches = payload
   }
 };
 export const getters = {
@@ -33,6 +35,13 @@ export const getters = {
 export const actions = {
     generateBatch({commit}, data){
         commit('GENERATE_BATCH', data)
+    },
+    async getAllBatches({ commit }) {
+      return await api.get('/payrollBatch/getAllPayrollBatches')
+      .then((response) => {
+        console.log(response)
+        commit('SET_ALL_PAYROLL_BATCHES', response.data)
+      })
     }
 };
 
