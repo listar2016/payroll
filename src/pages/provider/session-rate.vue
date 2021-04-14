@@ -687,9 +687,7 @@ export default {
       if(success) this.$store.dispatch('uxModule/showSnackBarMsg', this.uxData.snackText)
       else this.$store.dispatch('uxModule/showSnackBarMsg', 'Raised an error!')
 
-      this.$router.push({
-          name: 'All Session Rates'
-      })
+      this.$router.go(-1)
     },
   },
 };
